@@ -1,33 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Card from '../../components/Card';
-import PrimaryButton from '../../components/PrimaryButton';
+import { View, StyleSheet } from 'react-native';
+import AppCard from '../../components/AppCard';
+import AppText from '../../components/AppText';
+import AppButton from '../../components/AppButton';
+import AppChip from '../../components/AppChip';
+import AppHeader from '../../components/AppHeader';
+import ScreenContainer from '../../components/ScreenContainer';
 import { signInWithDigitalID } from '../../services/mockAuthService';
+import { useTheme } from '../../theme';
 
 type Props = { navigation?: any; onContinue: () => void };
 
 export default function DigitalIDScreen({ onContinue }: Props) {
+  const { Colors } = useTheme();
   const handleContinue = () => {
     signInWithDigitalID();
     onContinue();
   };
   return (
-    <View style={styles.container}>
-      <Card>
-        <Text style={styles.title}>Mock Digital Credential</Text>
-        <Text style={styles.text}>Issuer: CMS-approved ID Provider (mock)</Text>
-        <Text style={styles.text}>IAL2 equivalent: verified</Text>
-        <Text style={styles.text}>AAL2: passkey bound (mock)</Text>
-        <Text style={styles.text}>Patient: Alex Patient</Text>
-        <PrimaryButton title="Use this credential" onPress={handleContinue} />
-      </Card>
-      <Text style={styles.caption}>A real app would invoke wallet / mDL / passkey APIs here.</Text>
-    </View>
+    <ScreenContainer>
+      <AppHeader title="Mock Digital Credential" subtitle="CMS-approved ID Provider (demo)" />
+      <View style={styles.center}>
+        <AppCard>
+          <AppText>IAL2 equivalent: verified</AppText>
+          <AppText>AAL2: passkey bound (mock)</AppText>
+          <AppText>Patient: Alex Patient</AppText>
+          <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+            <AppChip label="mDL" variant="accent" />
+            <AppChip label="Passkey" variant="neutral" />
+          </View>
+          <AppButton title="Use this credential" onPress={handleContinue} />
+        </AppCard>
+        <AppText tone="muted" style={styles.caption}>A real app would invoke wallet / mDL / passkey APIs here.</AppText>
+      </View>
+    </ScreenContainer>
   );
 }
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, justifyContent: 'center' },
-  title: { fontSize: 20, fontWeight: '700', marginBottom: 6 },
-  text: { marginVertical: 4 },
-  caption: { color: '#6B7280', textAlign: 'center', marginTop: 12 },
+  center: { width: '100%', maxWidth: 520, alignSelf: 'center' },
+  caption: { textAlign: 'center', marginTop: 12 },
 });

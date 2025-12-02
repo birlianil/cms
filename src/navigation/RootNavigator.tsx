@@ -14,7 +14,8 @@ import DiabetesDashboardScreen from '../screens/DiabetesDashboardScreen';
 import MedicareConnectivityScreen from '../screens/MedicareConnectivityScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import { getCurrentUser } from '../services/mockAuthService';
-import { PrimaryColor } from '../theme/tokens';
+import { Colors } from '../theme/tokens';
+import CircleIcon from '../components/CircleIcon';
 
 const AuthStack = createNativeStackNavigator();
 const KillStack = createNativeStackNavigator();
@@ -31,7 +32,25 @@ const KillClipboardStack = () => (
 );
 
 const MainTabs = () => (
-  <Tab.Navigator screenOptions={{ headerShown: false, tabBarActiveTintColor: PrimaryColor }}>
+  <Tab.Navigator
+    screenOptions={({ route }) => ({
+      headerShown: false,
+      tabBarActiveTintColor: Colors.accent,
+      tabBarInactiveTintColor: Colors.textMuted,
+      tabBarStyle: { paddingVertical: 6, height: 70 },
+      tabBarIcon: ({ focused }) => {
+        const labelMap: Record<string, string> = {
+          Home: 'H',
+          KillTheClipboard: 'C',
+          CMS: 'M',
+          Assistant: 'A',
+          Diabetes: 'D',
+          Settings: 'S',
+        };
+        return <CircleIcon label={labelMap[route.name] || '•'} active={focused} />;
+      },
+    })}
+  >
     <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen name="KillTheClipboard" component={KillClipboardStack} options={{ title: 'Check-In' }} />
     <Tab.Screen name="CMS" component={MedicareConnectivityScreen} />

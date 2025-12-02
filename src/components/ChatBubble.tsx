@@ -19,7 +19,7 @@ export default function ChatBubble({ role, text, tag }: Props) {
         ]}
       >
         {!!tag && <Text style={[styles.tag, { color: Colors.secondary }]}>{tag}</Text>}
-        <Text style={{ color: isUser ? '#fff' : Colors.text }}>{text}</Text>
+        <Text style={{ color: isUser ? '#fff' : Colors.textPrimary }}>{text}</Text>
       </View>
     </View>
   );

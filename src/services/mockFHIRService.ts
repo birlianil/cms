@@ -13,6 +13,7 @@ import {
   VisitSummary,
 } from '../types/fhir';
 
+// Mock data aligns roughly to US Core profiles (Patient, Coverage, Appointment) for demo-only use.
 const patient: Patient = { id: 'patient-1', name: 'Alex Patient', email: 'alex@demo.com', dob: '1985-04-02' };
 const coverage: Coverage = { payer: 'Mock Health Plan', memberId: 'A123456789', group: 'GRP-42', effective: '2023-01-01' };
 const appointments: Appointment[] = [
@@ -76,15 +77,17 @@ export function getUpcomingAppointments(): Appointment[] {
 }
 
 export function getPrevisitData(): PrevisitData {
+  // Represents prefilled Patient + Coverage + Condition/Allergy data before check-in.
   return { demographics: patient, coverage, history: ['Hypertension', 'Seasonal allergies'] };
 }
 
 export function submitCheckIn(_payload: { appointmentId: string; answers: Record<string, string> }) {
-  // In production integrate to CMS Aligned Network FHIR endpoint here
+  // In production integrate to CMS Aligned Network FHIR endpoint here (e.g., $submit-intake on Encounter).
   return { success: true, confirmation: 'Check-in submitted' };
 }
 
 export function getVisitSummary(_appointmentId: string): VisitSummary {
+  // Simulates Encounter/DocumentReference/Composition hand-back.
   return {
     diagnoses: ['Z00.00 - General adult medical exam', 'E11.9 - Type 2 diabetes without complications'],
     instructions: ['Increase daily steps to 8k', 'Follow DASH diet guidance', 'Follow-up labs in 3 months'],

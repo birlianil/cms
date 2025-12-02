@@ -1,16 +1,30 @@
 import React, { PropsWithChildren } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { useTheme } from '../theme';
 
-export default function Card({ children }: PropsWithChildren) {
-  const { Colors, Spacing } = useTheme();
+type Props = PropsWithChildren<{ style?: ViewStyle }>;
+
+export default function Card({ children, style }: Props) {
+  const { Colors, Spacing, Radii, Shadows } = useTheme();
   return (
-    <View style={[styles.card, { backgroundColor: Colors.card, padding: Spacing.md, borderColor: Colors.border }]}>
+    <View
+      style={[
+        styles.card,
+        {
+          backgroundColor: Colors.surface,
+          padding: Spacing.lg,
+          borderColor: Colors.border,
+          borderRadius: Radii.md,
+          ...Shadows.sm,
+        },
+        style,
+      ]}
+    >
       {children}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: 12, marginVertical: 8, borderWidth: 1, shadowOpacity: 0.08, shadowRadius: 4, elevation: 1 },
+  card: { marginVertical: 8, borderWidth: 1 },
 });
