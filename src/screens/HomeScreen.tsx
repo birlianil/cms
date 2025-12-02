@@ -6,6 +6,7 @@ import AppButton from '../components/AppButton';
 import AppChip from '../components/AppChip';
 import AppHeader from '../components/AppHeader';
 import ScreenContainer from '../components/ScreenContainer';
+import CircleIcon from '../components/CircleIcon';
 import {
   getDigitalCredential,
   getMedicareNotices,
@@ -33,8 +34,20 @@ export default function HomeScreen({ navigation }: any) {
       />
 
       <AppCard>
-        <View style={{ backgroundColor: Colors.primarySoft, padding: Spacing.md, borderRadius: 12, marginBottom: Spacing.md }}>
-          <AppText variant="title" weight="bold">Next visit</AppText>
+        <View
+          style={{
+            backgroundColor: Colors.primarySoft,
+            padding: Spacing.lg,
+            borderRadius: 16,
+            marginBottom: Spacing.md,
+            borderColor: Colors.border,
+            borderWidth: 1,
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: Spacing.sm, gap: 8 }}>
+            <CircleIcon label="N" active />
+            <AppText variant="title" weight="bold">Next visit</AppText>
+          </View>
           <AppText weight="medium">{next.date}</AppText>
           <AppText tone="secondary" style={{ marginBottom: 6 }}>{next.location}</AppText>
           <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
@@ -49,25 +62,25 @@ export default function HomeScreen({ navigation }: any) {
         </View>
 
         <View style={{ flexDirection: 'row', gap: Spacing.sm, flexWrap: 'wrap' }}>
-          <AppCard style={{ flex: 1, minWidth: 220 }} title="Identity ready" subtitle="IAL2/AAL2 (mock)">
+          <AppCard style={{ flex: 1, minWidth: 220 }} title="Identity ready" subtitle="IAL2/AAL2 (mock)" headerRight={<CircleIcon label="ID" active={false} />}>
             <AppText tone="secondary">{credential.issuer}</AppText>
             <AppText style={{ marginTop: 4 }}>
               IAL: {credential.ial} · AAL: {credential.aal} · Passkey: {credential.passkeyBound ? 'bound' : 'unbound'}
             </AppText>
             <AppButton title="CMS connectivity" variant="secondary" onPress={() => navigation.navigate('CMS')} />
           </AppCard>
-          <AppCard style={{ flex: 1, minWidth: 220 }} title="Medicare" subtitle="Stay notified">
+          <AppCard style={{ flex: 1, minWidth: 220 }} title="Medicare" subtitle="Stay notified" headerRight={<CircleIcon label="M" active={false} />}>
             <AppText weight="medium">{unread} unread Medicare.gov notices</AppText>
             <AppButton title="View notices" variant="secondary" onPress={() => navigation.navigate('CMS')} />
           </AppCard>
         </View>
 
         <View style={{ flexDirection: 'row', gap: Spacing.sm, flexWrap: 'wrap' }}>
-          <AppCard style={{ flex: 1, minWidth: 220 }} title="Care & coaching" subtitle="AI + chronic care">
+          <AppCard style={{ flex: 1, minWidth: 220 }} title="Care & coaching" subtitle="AI + chronic care" headerRight={<CircleIcon label="AI" active={false} />}>
             <AppButton title="Ask AI Assistant" variant="secondary" onPress={() => navigation.navigate('Assistant')} />
             <AppButton title="Diabetes & weight" variant="secondary" onPress={() => navigation.navigate('Diabetes')} />
           </AppCard>
-          <AppCard style={{ flex: 1, minWidth: 220 }} title="Data exchange" subtitle="SHL/QR ready">
+          <AppCard style={{ flex: 1, minWidth: 220 }} title="Data exchange" subtitle="SHL/QR ready" headerRight={<CircleIcon label="Q" active={false} />}>
             <AppChip label="FHIR intake" variant="neutral" />
             <AppChip label="Visit hand-back" variant="accent" style={{ marginTop: 6 }} />
           </AppCard>
