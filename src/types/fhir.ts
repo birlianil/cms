@@ -1,0 +1,14 @@
+export type Patient = { id: string; name: string; email: string; dob: string };
+export type Coverage = { payer: string; memberId: string; group: string; effective: string };
+export type Appointment = { id: string; date: string; location: string; reason: string; provider: string };
+export type PrevisitData = { demographics: Patient; coverage: Coverage; history: string[] };
+export type VisitSummary = { diagnoses: string[]; instructions: string[]; medications: string[]; followUps: string[]; visitLink?: SmartHealthLink };
+export type Observation = { code: string; label: string; value: string; unit?: string };
+export type DiabetesMetrics = { hba1c: number; bmi: number; weightTrend: number[]; bp: string };
+export type Task = { id: string; title: string; due: string; status: 'open' | 'done' };
+export type AIReturn = { message: string; tag: 'Educational' | 'Guidance'; escalation?: boolean };
+export type DigitalCredential = { issuer: string; ial: string; aal: string; passkeyBound: boolean; status: 'active' | 'expired'; lastRefreshed: string };
+export type SmartHealthLink = { id: string; label: string; url: string; qrHint: string; type: 'insurance' | 'history' | 'visit' };
+export type MedicareNotice = { id: string; title: string; type: 'EOB' | 'Fraud Alert' | 'Notice'; date: string; action: string; read: boolean };
+export type DiscoveryApp = { id: string; name: string; category: string; trial: string; cost?: string };
+export type SecurityChecklistItem = { id: string; label: string; status: 'complete' | 'pending' };
